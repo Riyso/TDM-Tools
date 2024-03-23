@@ -16,7 +16,7 @@ local sampev = require('lib.samp.events')
 local imgui = require('mimgui')
 local encoding = require('encoding')
 
-local script_version = 500
+local script_version = 501
 local update_state = false
 
 local script_path = thisScript().path
@@ -56,7 +56,7 @@ local ui_meta = {
         if v == "switch" then
             local switch = function()
                 if self.process and self.process:status() ~= "dead" then
-                    return false -- // Предыдущая анимация ещё не завершилась!
+                    return false -- // ГЏГ°ГҐГ¤Г»Г¤ГіГ№Г Гї Г Г­ГЁГ¬Г Г¶ГЁГї ГҐГ№Вё Г­ГҐ Г§Г ГўГҐГ°ГёГЁГ«Г Г±Гј!
                 end
                 self.timer = os.clock()
                 self.state = not self.state
@@ -77,7 +77,7 @@ local ui_meta = {
                         if a == 1.00 then break end
                     end
                 end)
-                return true -- // Состояние окна изменено!
+                return true -- // Г‘Г®Г±ГІГ®ГїГ­ГЁГҐ Г®ГЄГ­Г  ГЁГ§Г¬ГҐГ­ГҐГ­Г®!
             end
             return switch
         end
@@ -125,7 +125,7 @@ local COLORS = {
 
 local navigation = {
     current = 1,
-    list = { u8'Главная', u8'Обновление', u8'Настройки' }
+    list = { u8'ГѓГ«Г ГўГ­Г Гї', u8'ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ', u8'ГЌГ Г±ГІГ°Г®Г©ГЄГЁ' }
 }
 
 
@@ -142,7 +142,7 @@ imgui.OnInitialize(function()
     --==[ FONT ]==--
     local builder = imgui.ImFontGlyphRangesBuilder()
     builder:AddRanges(imgui.GetIO().Fonts:GetGlyphRangesCyrillic())
-    builder:AddText("‚„…†‡€‰‹‘’“”•–-™›№")
+    builder:AddText("вЂљвЂћвЂ¦вЂ вЂЎЛ†вЂ°вЂ№вЂвЂ™вЂњвЂќвЂўвЂ“-в„ўвЂєВ№")
     local range = imgui.ImVector_ImWchar()
     builder:BuildRanges(range)
  	
@@ -215,38 +215,38 @@ local newFrame = imgui.OnFrame(
         imgui.SetCursorPos(imgui.ImVec2(15, 55))
         if navigation.current == 1 then
 			imgui.SetCursorPos(imgui.ImVec2(15, 55))
-            imgui.FunctionChild(u8'TDM-Tools', u8'Описание скрипта', nil, imgui.ImVec2(250, 200), nil)
-                imgui.TextWrapped(u8'Скрипт разработан для игрового мира: СССР против США\n\nОн основан на библиотеке Moonloader и использует язык программирования Lua (включая mimgui). Благодаря приятному стилю, обширной функциональности и многим другим преимуществам, изучение вкладок скрипта позволит сразу разобраться в его возможностях.')
+            imgui.FunctionChild(u8'TDM-Tools', u8'ГЋГЇГЁГ±Г Г­ГЁГҐ Г±ГЄГ°ГЁГЇГІГ ', nil, imgui.ImVec2(250, 200), nil)
+                imgui.TextWrapped(u8'Г‘ГЄГ°ГЁГЇГІ Г°Г Г§Г°Г ГЎГ®ГІГ Г­ Г¤Г«Гї ГЁГЈГ°Г®ГўГ®ГЈГ® Г¬ГЁГ°Г : Г‘Г‘Г‘Гђ ГЇГ°Г®ГІГЁГў Г‘ГГЂ\n\nГЋГ­ Г®Г±Г­Г®ГўГ Г­ Г­Г  ГЎГЁГЎГ«ГЁГ®ГІГҐГЄГҐ Moonloader ГЁ ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІ ГїГ§Г»ГЄ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ°Г®ГўГ Г­ГЁГї Lua (ГўГЄГ«ГѕГ·Г Гї mimgui). ГЃГ«Г ГЈГ®Г¤Г Г°Гї ГЇГ°ГЁГїГІГ­Г®Г¬Гі Г±ГІГЁГ«Гѕ, Г®ГЎГёГЁГ°Г­Г®Г© ГґГіГ­ГЄГ¶ГЁГ®Г­Г Г«ГјГ­Г®Г±ГІГЁ ГЁ Г¬Г­Г®ГЈГЁГ¬ Г¤Г°ГіГЈГЁГ¬ ГЇГ°ГҐГЁГ¬ГіГ№ГҐГ±ГІГўГ Г¬, ГЁГ§ГіГ·ГҐГ­ГЁГҐ ГўГЄГ«Г Г¤Г®ГЄ Г±ГЄГ°ГЁГЇГІГ  ГЇГ®Г§ГўГ®Г«ГЁГІ Г±Г°Г Г§Гі Г°Г Г§Г®ГЎГ°Г ГІГјГ±Гї Гў ГҐГЈГ® ГўГ®Г§Г¬Г®Г¦Г­Г®Г±ГІГїГµ.')
             imgui.EndChild()
 
             imgui.SetCursorPos(imgui.ImVec2(15, 265))
-			imgui.FunctionChild(u8'Authors', u8'Список авторов скрипта', nil, imgui.ImVec2(250, 85), nil)
-                imgui.TextWrapped(u8'© Стиль: chapo\n© Скрипт: avanesovspb')
+			imgui.FunctionChild(u8'Authors', u8'Г‘ГЇГЁГ±Г®ГЄ Г ГўГІГ®Г°Г®Гў Г±ГЄГ°ГЁГЇГІГ ', nil, imgui.ImVec2(250, 85), nil)
+                imgui.TextWrapped(u8'В© Г‘ГІГЁГ«Гј: chapo\nВ© Г‘ГЄГ°ГЁГЇГІ: avanesovspb')
             imgui.EndChild()
             imgui.SetCursorPos(imgui.ImVec2(15 + 330 + 15, 55))
 				imgui.Image(image, imgui.ImVec2(210, 300))
 			
         elseif navigation.current == 2 then
 			imgui.SetCursorPos(imgui.ImVec2(15, 55))
-            imgui.FunctionChild(u8'Update', u8'Все обновления скрипта', nil, imgui.ImVec2(250, 200), nil)
-			imgui.TextWrapped(u8'Релиз скрипта - 22.03.2024\n- Взят стиль (chapo)\n- Изменён полностью цвет скрипта\n- Добавлен логотип проекта на главную\n- Добавлены разделы "Обновления" "Настройки"\n- Полный баго-фикс скрипта\n- Переделан стиль скрипта под проект\n- Добавлено больше описаний под функции')
+            imgui.FunctionChild(u8'Update', u8'Г‚Г±ГҐ Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї Г±ГЄГ°ГЁГЇГІГ ', nil, imgui.ImVec2(250, 200), nil)
+			imgui.TextWrapped(u8'ГђГҐГ«ГЁГ§ Г±ГЄГ°ГЁГЇГІГ  - 22.03.2024\n- Г‚Г§ГїГІ Г±ГІГЁГ«Гј (chapo)\n- Г€Г§Г¬ГҐГ­ВёГ­ ГЇГ®Г«Г­Г®Г±ГІГјГѕ Г¶ГўГҐГІ Г±ГЄГ°ГЁГЇГІГ \n- Г„Г®ГЎГ ГўГ«ГҐГ­ Г«Г®ГЈГ®ГІГЁГЇ ГЇГ°Г®ГҐГЄГІГ  Г­Г  ГЈГ«Г ГўГ­ГіГѕ\n- Г„Г®ГЎГ ГўГ«ГҐГ­Г» Г°Г Г§Г¤ГҐГ«Г» "ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГї" "ГЌГ Г±ГІГ°Г®Г©ГЄГЁ"\n- ГЏГ®Г«Г­Г»Г© ГЎГ ГЈГ®-ГґГЁГЄГ± Г±ГЄГ°ГЁГЇГІГ \n- ГЏГҐГ°ГҐГ¤ГҐГ«Г Г­ Г±ГІГЁГ«Гј Г±ГЄГ°ГЁГЇГІГ  ГЇГ®Г¤ ГЇГ°Г®ГҐГЄГІ\n- Г„Г®ГЎГ ГўГ«ГҐГ­Г® ГЎГ®Г«ГјГёГҐ Г®ГЇГЁГ±Г Г­ГЁГ© ГЇГ®Г¤ ГґГіГ­ГЄГ¶ГЁГЁ')
             imgui.EndChild()
 
             imgui.SetCursorPos(imgui.ImVec2(15, 265))
-			imgui.FunctionChild(u8'Version', u8'Версия скрипта', nil, imgui.ImVec2(250, 85), nil)
+			imgui.FunctionChild(u8'Version', u8'Г‚ГҐГ°Г±ГЁГї Г±ГЄГ°ГЁГЇГІГ ', nil, imgui.ImVec2(250, 85), nil)
                 imgui.TextWrapped(u8'Date - 22.03.2024\nVersion - 5.1v')
             imgui.EndChild()
             imgui.SetCursorPos(imgui.ImVec2(15 + 250 + 15, 55))
 				imgui.Image(image2, imgui.ImVec2(403, 200))
 				
 			imgui.SetCursorPos(imgui.ImVec2(15 + 250 + 15, 265))
-			imgui.FunctionChild(u8'New version', u8'Последнее обновление', nil, imgui.ImVec2(403, 85), nil)
-                imgui.TextWrapped(u8'Полное обновление скрипта, багофикс, добавление новых систем с версией - v5.1')
+			imgui.FunctionChild(u8'New version', u8'ГЏГ®Г±Г«ГҐГ¤Г­ГҐГҐ Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ', nil, imgui.ImVec2(403, 85), nil)
+                imgui.TextWrapped(u8'ГЏГ®Г«Г­Г®ГҐ Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ Г±ГЄГ°ГЁГЇГІГ , ГЎГ ГЈГ®ГґГЁГЄГ±, Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г­Г®ГўГ»Гµ Г±ГЁГ±ГІГҐГ¬ Г± ГўГҐГ°Г±ГЁГҐГ© - v5.1')
             imgui.EndChild()
 
         elseif navigation.current == 3 then
             imgui.SetCursorPos(imgui.ImVec2(15, 265))
-            imgui.FunctionChild(u8'Ads config', u8'Текст рекламы мира в - ads', nil, imgui.ImVec2(630, 80), nil)
+            imgui.FunctionChild(u8'Ads config', u8'Г’ГҐГЄГ±ГІ Г°ГҐГЄГ«Г Г¬Г» Г¬ГЁГ°Г  Гў - ads', nil, imgui.ImVec2(630, 80), nil)
 			imgui.PushItemWidth(350)
             if imgui.InputText(u8' ', inputField, 256) then
                 ini.global_settings.inputField = u8:decode(ffi.string(inputField))  -- (u8(ini.global_settings.inputField))
@@ -255,14 +255,14 @@ local newFrame = imgui.OnFrame(
             imgui.PopItemWidth()
             imgui.SameLine()
             if imgui.Button(u8'default', imgui.ImVec2(70, 20)) then
-                ini.global_settings.inputField = "СССР vs США | Team Deathmatch | Новое обновление | /list"
+                ini.global_settings.inputField = "Г‘Г‘Г‘Гђ vs Г‘ГГЂ | Team Deathmatch | ГЌГ®ГўГ®ГҐ Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ | /list"
                 inicfg.save(ini, global_settings)
-                sampAddChatMessage('[TDM-Tools]:{ffffff} Ads config был успешно сброшен', 0x696969)
+                sampAddChatMessage('[TDM-Tools]:{ffffff} Ads config ГЎГ»Г« ГіГ±ГЇГҐГёГ­Г® Г±ГЎГ°Г®ГёГҐГ­', 0x696969)
             end
             imgui.SameLine()
             imgui.NewLine()
             imgui.SameLine()
-            imgui.TextQuestion("(  ?  )", u8"Текст отправки рекламы в - /ads")
+            imgui.TextQuestion("(  ?  )", u8"Г’ГҐГЄГ±ГІ Г®ГІГЇГ°Г ГўГЄГЁ Г°ГҐГЄГ«Г Г¬Г» Гў - /ads")
             imgui.SameLine()
             imgui.PushItemWidth(100)
             if imgui.InputInt("  ", inputField2, 256) then
@@ -271,32 +271,32 @@ local newFrame = imgui.OnFrame(
             end
             imgui.PopItemWidth()
             imgui.SameLine()
-            imgui.Text(u8"сек.")
+            imgui.Text(u8"Г±ГҐГЄ.")
             imgui.EndChild()
 
             imgui.SetCursorPos(imgui.ImVec2(20, 90))
-                if imgui.Checkbox(u8'CopyPosPlayer - Копировать получаемую позицию при - /savepos', copy_pos_Player) then
+                if imgui.Checkbox(u8'CopyPosPlayer - ГЉГ®ГЇГЁГ°Г®ГўГ ГІГј ГЇГ®Г«ГіГ·Г ГҐГ¬ГіГѕ ГЇГ®Г§ГЁГ¶ГЁГѕ ГЇГ°ГЁ - /savepos', copy_pos_Player) then
                     ini.global_settings.copy_pos_Player = copy_pos_Player[0]
                     inicfg.save(ini, global_settings)
                 end
                 --imgui.SameLine()
-                --imgui.TextQuestion("(  ?  )", u8"Копировать получаемую позицию при - /savepos")
+                --imgui.TextQuestion("(  ?  )", u8"ГЉГ®ГЇГЁГ°Г®ГўГ ГІГј ГЇГ®Г«ГіГ·Г ГҐГ¬ГіГѕ ГЇГ®Г§ГЁГ¶ГЁГѕ ГЇГ°ГЁ - /savepos")
 
                 imgui.SetCursorPos(imgui.ImVec2(20, 130))
-                if imgui.Checkbox(u8'AutoCbCreate - Авто значения - 9999, ввод диалога в кб.', auto_cb) then
+                if imgui.Checkbox(u8'AutoCbCreate - ГЂГўГІГ® Г§Г­Г Г·ГҐГ­ГЁГї - 9999, ГўГўГ®Г¤ Г¤ГЁГ Г«Г®ГЈГ  Гў ГЄГЎ.', auto_cb) then
                     ini.global_settings.auto_cb = auto_cb[0]
                     inicfg.save(ini, global_settings)
                 end
                 --imgui.SameLine()
-                --imgui.TextQuestion("(  ?  )", u8"Автоматически вставить значение: 9999, ввод диалога")
+                --imgui.TextQuestion("(  ?  )", u8"ГЂГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ ГўГ±ГІГ ГўГЁГІГј Г§Г­Г Г·ГҐГ­ГЁГҐ: 9999, ГўГўГ®Г¤ Г¤ГЁГ Г«Г®ГЈГ ")
 
                 imgui.SetCursorPos(imgui.ImVec2(20, 170))
-                if imgui.Checkbox(u8'AdsActive - Автоввод рекламы - /send_ad', ads_active) then
+                if imgui.Checkbox(u8'AdsActive - ГЂГўГІГ®ГўГўГ®Г¤ Г°ГҐГЄГ«Г Г¬Г» - /send_ad', ads_active) then
                     ini.global_settings.ads_active = ads_active[0]
                     inicfg.save(ini, global_settings)
                 end
                 --imgui.SameLine()
-                --imgui.TextQuestion("(  ?  )", u8"Работоспособность команды - /send_ad")
+                --imgui.TextQuestion("(  ?  )", u8"ГђГ ГЎГ®ГІГ®Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГј ГЄГ®Г¬Г Г­Г¤Г» - /send_ad")
 
             imgui.EndChild()
         end
@@ -471,8 +471,8 @@ colours = {
 function main()
     while not isSampAvailable() do wait(0) end
 	-----
-	sampAddChatMessage('[TDM-Tools]:{ffffff} Скрипт успешно загружен', 0x696969)
-	sampAddChatMessage('[TDM-Tools]:{ffffff} Меню: {696969}/trpanel', 0x696969)
+	sampAddChatMessage('[TDM-Tools]:{ffffff} Г‘ГЄГ°ГЁГЇГІ ГіГ±ГЇГҐГёГ­Г® Г§Г ГЈГ°ГіГ¦ГҐГ­', 0x696969)
+	sampAddChatMessage('[TDM-Tools]:{ffffff} ГЊГҐГ­Гѕ: {696969}/trpanel', 0x696969)
 	-----
     sampRegisterChatCommand('trpanel', function()
         menu.switch()
@@ -481,14 +481,14 @@ function main()
         if not sampIsDialogActive() and not isSampfuncsConsoleActive() then
             sampSendChat("/ads ".. ini.global_settings.inputField)
         else
-            sampAddChatMessage("[TDM-Tools]:{ffffff} Для начала закройте: {80BCFF}диалоговое окно, консоль, чат", 0x696969)
+            sampAddChatMessage("[TDM-Tools]:{ffffff} Г„Г«Гї Г­Г Г·Г Г«Г  Г§Г ГЄГ°Г®Г©ГІГҐ: {80BCFF}Г¤ГЁГ Г«Г®ГЈГ®ГўГ®ГҐ Г®ГЄГ­Г®, ГЄГ®Г­Г±Г®Г«Гј, Г·Г ГІ", 0x696969)
         end
     end)
     downloadUrlToFile(update_url, update_path, function(id, status)
         if status == dlstatus.STATUS_ENDDOWNLOADDATA then
             local tm_update = inicfg.load(nil, update_path)
             if tonumber(tm_update.info.version) > script_version then
-                msg_chat('Система заметили возможное обновление, скрипт подготавливается к обновлению.')
+                msg_chat('Г‘ГЁГ±ГІГҐГ¬Г  Г§Г Г¬ГҐГІГЁГ«ГЁ ГўГ®Г§Г¬Г®Г¦Г­Г®ГҐ Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ, Г±ГЄГ°ГЁГЇГІ ГЇГ®Г¤ГЈГ®ГІГ ГўГ«ГЁГўГ ГҐГІГ±Гї ГЄ Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГѕ.')
                 update_state = true
             end
             os.remove(update_path)
@@ -499,7 +499,7 @@ function main()
         if update_state then
             downloadUrlToFile(script_url, script_path, function(id, status)
                 if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-                    msg_chat('Обновление было установлено, на данный момент скрипт имеет актуальную версию.')
+                    msg_chat('ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ ГЎГ»Г«Г® ГіГ±ГІГ Г­Г®ГўГ«ГҐГ­Г®, Г­Г  Г¤Г Г­Г­Г»Г© Г¬Г®Г¬ГҐГ­ГІ Г±ГЄГ°ГЁГЇГІ ГЁГ¬ГҐГҐГІ Г ГЄГІГіГ Г«ГјГ­ГіГѕ ГўГҐГ°Г±ГЁГѕ.')
                     thisScript():reload()
                 end
             end)
@@ -508,7 +508,7 @@ function main()
         if ads_active[0] then
             if os.time() - (lastMessageTime or 0) >= ini.global_settings.inputField2 then
                 sampSendChat(ini.global_settings.inputField)
-                lastMessageTime = os.time()  -- Запоминаем время последнего сообщения
+                lastMessageTime = os.time()  -- Г‡Г ГЇГ®Г¬ГЁГ­Г ГҐГ¬ ГўГ°ГҐГ¬Гї ГЇГ®Г±Г«ГҐГ¤Г­ГҐГЈГ® Г±Г®Г®ГЎГ№ГҐГ­ГЁГї
             end
         end
 	end
@@ -634,9 +634,9 @@ function imgui.FunctionChild(title, description, bool, size, colors, checkbox_ca
         imgui.PushStyleColor(imgui.Col.FrameBgHovered, ColorFloatToVec(COLORS.back)) -- CRASH
         imgui.PushStyleColor(imgui.Col.FrameBgActive, ColorFloatToVec(COLORS.back)) -- CRASH
         if imgui.Checkbox('##'..title..'::'..description, bool) then
-            if title == u8'Скин' then
+            if title == u8'Г‘ГЄГЁГ­' then
                 vACS():SetSkin(SKIN.SkinChanger[0] and SKIN.model[0] or SKIN.SERVER_SKIN)
-            elseif title == u8'Аура' then
+            elseif title == u8'ГЂГіГ°Г ' then
                 vACS():ToggleGlow(SKIN.glow[0])
             end
         end
@@ -889,7 +889,7 @@ SFPRO = {
 
 
 
-function isSampfuncsLoаded()
+function isSampfuncsLoГ ded()
     if not thisScript().filename:find('!vAcs by chapo') then
         --printStyledString('~p~~w~vACS ~r~ERORR', 5500, 7)
         for i = 1, 5 do

@@ -20,7 +20,7 @@ local script_version = 501
 local update_state = false
 
 local script_path = thisScript().path
-local script_url = 'https://raw.githubusercontent.com/Riyso/TDM-Tools/main/Training%20Helper.lua'
+local script_url = 'https://raw.githubusercontent.com/Riyso/TDM-Tools/main/TDM-Tools.lua'
 local update_path = getWorkingDirectory() .. '/tdm_update.ini'
 local update_url = 'https://raw.githubusercontent.com/Riyso/TDM-Tools/main/tdm_update.ini' -- https://raw.githubusercontent.com/Riyso/TDM-Tools/main/tdm_update
 
